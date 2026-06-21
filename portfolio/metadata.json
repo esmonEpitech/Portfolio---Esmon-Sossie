@@ -1,0 +1,6 @@
+{
+  "name": "Creative Portfolio",
+  "description": "A premium, micro-interactive portfolio with a warm, minimalist cartoon aesthetic, fluid dark/light transitions, and polished framer motion interactions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
