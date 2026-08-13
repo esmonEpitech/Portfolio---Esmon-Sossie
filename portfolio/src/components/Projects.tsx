@@ -27,8 +27,8 @@ const PROJECTS: Project[] = [
     features: ["Authentification JWT", "Système de notation", "Dashboard Admin", "Streaming Preview"],
     challenges: "Gestion de l'authentification et synchronisation temps réel des avis.",
     result: "Une expérience utilisateur fluide typée streaming moderne.",
-    githubUrl: "#",
-    demoUrl: "#",
+    githubUrl: "https://github.com/esmonEpitech/rotten-orange",
+    demoUrl: "https://rotten-orange.vercel.app/",
     image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop",
   },
   {
