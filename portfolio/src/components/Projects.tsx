@@ -67,7 +67,7 @@ const PROJECTS: Project[] = [
     challenges: "Optimisation des performances sur mobile avec de longues listes de cartes.",
     result: "Application mobile intuitive pour l'organisation quotidienne.",
     githubUrl: "#",
-    demoUrl: "https://hub-strategique.vercel.app/",
+    demoUrl: "#",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1200&auto=format&fit=crop",
   },
   {
@@ -79,8 +79,8 @@ const PROJECTS: Project[] = [
     features: ["Design system épuré", "Formulaires avancés", "Performance SEO", "Animation Framer"],
     challenges: "Mise en avant d'une identité visuelle forte et crédible.",
     result: "Site web haute performance convertissant les leads.",
-    githubUrl: "#",
-    demoUrl: "#",
+    githubUrl: "https://hub-strategique.vercel.app/",
+    demoUrl: "https://hub-strategique.vercel.app/",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
   },
 ];
