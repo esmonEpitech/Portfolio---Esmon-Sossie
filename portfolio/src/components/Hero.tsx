@@ -38,7 +38,9 @@ export default function Hero() {
             className="inline-flex items-center gap-2 bg-[#6BA368]/10 text-[#6BA368] px-4 py-1.5 rounded-full border border-[#6BA368]/20 text-xs font-bold uppercase tracking-wider shadow-sm"
           >
             <div className="w-2 h-2 bg-[#6BA368] rounded-full animate-pulse"></div>
-            Disponible pour construire votre prochain produit ✨🚀
+            Disponible pour construire votre prochain produit 
+            <div className="w-2 h-2 bg-[#6BA368] rounded-full animate-pulse"></div>
+
           </motion.div>
 
           {/* Heading */}

@@ -90,7 +90,8 @@ export default function Navbar({ isDark, onToggleTheme }: NavbarProps) {
                 href="#contact"
                 className="flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-full bg-brand-yellow text-gray-900 shadow-sm border border-brand-yellow/30 hover:shadow-md transition-all active:translate-y-[1px]"
               >
-                <Sparkles className="w-3.5 h-3.5 fill-current text-gray-905" /> Let's Talk!
+                {/* <Sparkles className="w-3.5 h-3.5 fill-current text-gray-905" />  */}
+                <span>Let's Talk!</span>
               </a>
             </div>
           </div>

@@ -236,6 +236,7 @@ function ProjectCard({ project, onClick }: ProjectCardProps) {
         <span className="text-brand-blue text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block">
           {project.role}
         </span>
+
         <h3 className="text-2xl font-bold group-hover:text-brand-blue transition-colors text-app-text">
           {project.title}
         </h3>
@@ -259,183 +260,235 @@ function ProjectCard({ project, onClick }: ProjectCardProps) {
 export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  // Bloque le scroll de la page lorsque le modal est ouvert
   useEffect(() => {
-    document.body.style.overflow = selectedProject ? "hidden" : "unset";
+    const originalOverflow = document.body.style.overflow;
+
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = originalOverflow || "auto";
+    }
+
+    // Restaure le comportement initial lorsque le composant est démonté
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, [selectedProject]);
 
   return (
-    <section
-      id="projects"
-      className="relative min-h-screen py-24 px-4 md:px-8 bg-app-bg text-app-text overflow-hidden transition-colors duration-300"
-    >
-      {/* Slow rotating organic blobs in the background, matching Hero style */}
-      <div className="absolute top-1/4 -left-16 w-72 h-72 bg-brand-blue/15 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-16 w-80 h-80 bg-brand-orange/10 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute top-10 right-1/4 w-40 h-40 bg-brand-blue/5 opacity-40 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 left-1/4 w-80 h-80 bg-brand-orange/5 opacity-40 blur-[100px] rounded-full pointer-events-none" />
+    <>
+      {/* ============================================================
+          SECTION PROJECTS
+          Le modal est volontairement placé EN DEHORS de cette section.
+          Cela évite les problèmes de stacking context avec les autres
+          sections du portfolio.
+      ============================================================ */}
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* HEADER */}
-        <div className="text-center mb-20" id="header-container">
-          <span
-            id="label-tag"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest px-4 py-2 rounded-full border border-brand-blue/30 bg-brand-blue/10 text-brand-blue mb-4"
-          >
-            <Code2 size={14} /> Projets
-          </span>
-          <h2
-            id="main-title"
-            className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-app-text via-app-text to-app-text-muted bg-clip-text text-transparent"
-          >
-            Mes réalisations.
-          </h2>
-          <p
-            id="main-description"
-            className="text-app-text-muted max-w-2xl mx-auto text-lg leading-relaxed"
-          >
-            Une sélection de mes travaux, mêlant interfaces intuitives et
-            solutions techniques robustes.
-          </p>
-        </div>
+      <section
+        id="projects"
+        className="relative min-h-screen py-24 px-4 md:px-8 bg-app-bg text-app-text transition-colors duration-300"
+      >
+        {/* Slow rotating organic blobs in the background, matching Hero style */}
+        <div className="absolute top-1/4 -left-16 w-72 h-72 bg-brand-blue/15 blur-3xl rounded-full pointer-events-none" />
 
-        {/* GRID PROJETS */}
-        <div
-          id="projects-grid"
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
-          style={{ perspective: "1000px" }}
-        >
-          {PROJECTS.map((p) => (
-            <ProjectCard
-              key={p.id}
-              project={p}
-              onClick={() => setSelectedProject(p)}
-            />
-          ))}
-        </div>
+        <div className="absolute bottom-1/4 -right-16 w-80 h-80 bg-brand-orange/10 blur-3xl rounded-full pointer-events-none" />
 
-        {/* MODAL */}
-        <AnimatePresence>
-          {selectedProject && (
-            <div
-              id="project-modal"
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+        <div className="absolute top-10 right-1/4 w-40 h-40 bg-brand-blue/5 opacity-40 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="absolute bottom-10 left-1/4 w-80 h-80 bg-brand-orange/5 opacity-40 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* HEADER */}
+          <div className="text-center mb-20" id="header-container">
+            <span
+              id="label-tag"
+              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest px-4 py-2 rounded-full border border-brand-blue/30 bg-brand-blue/10 text-brand-blue mb-4"
             >
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setSelectedProject(null)}
-                id="modal-backdrop"
-                className="absolute inset-0 bg-black/80 dark:bg-black/95 backdrop-blur-xl"
+              <Code2 size={14} /> Projets
+            </span>
+
+            <h2
+              id="main-title"
+              className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-app-text via-app-text to-app-text-muted bg-clip-text text-transparent"
+            >
+              Mes réalisations.
+            </h2>
+
+            <p
+              id="main-description"
+              className="text-app-text-muted max-w-2xl mx-auto text-lg leading-relaxed"
+            >
+              Une sélection de mes travaux, mêlant interfaces intuitives et
+              solutions techniques robustes.
+            </p>
+          </div>
+
+          {/* GRID PROJETS */}
+          <div
+            id="projects-grid"
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
+            style={{ perspective: "1000px" }}
+          >
+            {PROJECTS.map((p) => (
+              <ProjectCard
+                key={p.id}
+                project={p}
+                onClick={() => setSelectedProject(p)}
               />
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                id="modal-content"
-                className="relative w-full max-w-5xl max-h-[90vh] bg-app-surface rounded-[2.5rem] overflow-hidden border border-app-border shadow-2xl flex flex-col md:flex-row backdrop-blur-xl"
+      {/* ============================================================
+          MODAL
+          Le modal est placé au niveau racine du composant et non
+          à l'intérieur de la section Projects.
+
+          Cela permet au positionnement fixed et au z-index de fonctionner
+          indépendamment des stacking contexts créés par les autres sections.
+      ============================================================ */}
+
+      <AnimatePresence>
+        {selectedProject && (
+          <div
+            id="project-modal"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8"
+          >
+            {/* BACKDROP */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              id="modal-backdrop"
+              className="absolute inset-0 z-0 bg-black/80 dark:bg-black/95 backdrop-blur-xl"
+            />
+
+            {/* MODAL CONTENT */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              id="modal-content"
+              className="relative z-10 w-full max-w-5xl max-h-[90vh] bg-app-surface rounded-[2.5rem] overflow-hidden border border-app-border shadow-2xl flex flex-col md:flex-row backdrop-blur-xl"
+            >
+              {/* IMAGE */}
+              <div
+                className="w-full md:w-1/2 h-64 md:h-auto bg-app-bg overflow-hidden relative"
+                id="modal-image-wrapper"
               >
-                <div
-                  className="w-full md:w-1/2 h-64 md:h-auto bg-app-bg overflow-hidden relative"
-                  id="modal-image-wrapper"
+                <img
+                  src={selectedProject.image}
+                  className="w-full h-full object-cover"
+                  alt={selectedProject.title}
+                />
+              </div>
+
+              {/* DETAILS */}
+              <div
+                className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto"
+                id="modal-details"
+              >
+                {/* CLOSE BUTTON */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  id="close-modal-btn"
+                  className="absolute top-6 right-6 p-3 rounded-full bg-app-bg hover:bg-app-border/40 text-app-text transition-colors z-10 shadow-sm border border-app-border"
                 >
-                  <img
-                    src={selectedProject.image}
-                    className="w-full h-full object-cover"
-                    alt={selectedProject.title}
-                  />
+                  <X size={20} />
+                </button>
+
+                {/* PROJECT HEADER */}
+                <div className="mb-10">
+                  <span className="text-brand-blue font-mono text-xs uppercase tracking-widest mb-3 block">
+                    {selectedProject.role}
+                  </span>
+
+                  <h2 className="text-4xl font-black mb-6 uppercase italic tracking-tight">
+                    {selectedProject.title}
+                  </h2>
+
+                  <p className="text-app-text-muted leading-relaxed text-lg italic border-l-4 border-brand-blue pl-6">
+                    {selectedProject.context}
+                  </p>
                 </div>
 
-                <div
-                  className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto"
-                  id="modal-details"
-                >
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    id="close-modal-btn"
-                    className="absolute top-6 right-6 p-3 rounded-full bg-app-bg hover:bg-app-border/40 text-app-text transition-colors z-10 shadow-sm border border-app-border"
+                {/* PROJECT DETAILS */}
+                <div className="space-y-10">
+                  {/* TECHNOLOGIES */}
+                  <div>
+                    <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] mb-4 text-app-text-muted/65">
+                      <Layers size={14} /> Technologies
+                    </h3>
+
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="px-4 py-1.5 rounded-full bg-brand-blue/5 border border-brand-blue/20 text-brand-blue text-xs font-medium"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* FEATURES */}
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-app-text-muted/65">
+                      Fonctionnalités
+                    </h3>
+
+                    <ul className="grid grid-cols-1 gap-4">
+                      {selectedProject.features.map((f) => (
+                        <li
+                          key={f}
+                          className="flex items-center gap-3 text-sm text-app-text-muted"
+                        >
+                          <CheckCircle
+                            className="text-brand-blue shrink-0"
+                            size={18}
+                          />
+
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* ACTIONS */}
+                  <div
+                    className="pt-10 border-t border-app-border flex gap-4"
+                    id="modal-actions"
                   >
-                    <X size={20} />
-                  </button>
-
-                  <div className="mb-10">
-                    <span className="text-brand-blue font-mono text-xs uppercase tracking-widest mb-3 block">
-                      {selectedProject.role}
-                    </span>
-                    <h2 className="text-4xl font-black mb-6 uppercase italic tracking-tight">
-                      {selectedProject.title}
-                    </h2>
-                    <p className="text-app-text-muted leading-relaxed text-lg italic border-l-4 border-brand-blue pl-6">
-                      {selectedProject.context}
-                    </p>
-                  </div>
-
-                  <div className="space-y-10">
-                    <div>
-                      <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] mb-4 text-app-text-muted/65">
-                        <Layers size={14} /> Technologies
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProject.technologies.map((t) => (
-                          <span
-                            key={t}
-                            className="px-4 py-1.5 rounded-full bg-brand-blue/5 border border-brand-blue/20 text-brand-blue text-xs font-medium"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-app-text-muted/65">
-                        Fonctionnalités
-                      </h3>
-                      <ul className="grid grid-cols-1 gap-4">
-                        {selectedProject.features.map((f) => (
-                          <li
-                            key={f}
-                            className="flex items-center gap-3 text-sm text-app-text-muted"
-                          >
-                            <CheckCircle
-                              className="text-brand-blue shrink-0"
-                              size={18}
-                            />{" "}
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div
-                      className="pt-10 border-t border-app-border flex gap-4"
-                      id="modal-actions"
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id="github-link"
+                      className="flex-1 flex items-center justify-center gap-3 px-6 py-4 border border-app-border text-app-text rounded-2xl hover:bg-app-surface transition-all font-bold"
                     >
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        id="github-link"
-                        className="flex-1 flex items-center justify-center gap-3 px-6 py-4 border border-app-border text-app-text rounded-2xl hover:bg-app-surface transition-all font-bold"
-                      >
-                        <Github size={20} /> Github
-                      </a>
-                      <a
-                        href={selectedProject.demoUrl}
-                        target="_blank"
-                        id="demo-link"
-                        className="flex-1 flex items-center justify-center gap-3 px-6 py-4 bg-brand-blue text-white rounded-2xl hover:opacity-90 transition-all shadow-[0_0_30px_rgba(59,130,246,0.3)] font-bold"
-                      >
-                        <ExternalLink size={20} /> Live Demo
-                      </a>
-                    </div>
+                      <Github size={20} /> Github
+                    </a>
+
+                    <a
+                      href={selectedProject.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id="demo-link"
+                      className="flex-1 flex items-center justify-center gap-3 px-6 py-4 bg-brand-blue text-white rounded-2xl hover:opacity-90 transition-all shadow-[0_0_30px_rgba(59,130,246,0.3)] font-bold"
+                    >
+                      <ExternalLink size={20} /> Live Demo
+                    </a>
                   </div>
                 </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

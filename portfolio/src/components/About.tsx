@@ -38,6 +38,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="flex flex-col items-center text-center gap-3 mb-16">
+          
           <span className="font-mono text-xs font-bold uppercase tracking-wider text-brand-orange px-4 py-1.5 rounded-full border border-brand-orange/20 bg-brand-orange/10 shadow-sm">
             Qui je suis
           </span>
