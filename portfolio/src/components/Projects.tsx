@@ -67,7 +67,7 @@ const PROJECTS: Project[] = [
     challenges: "Optimisation des performances sur mobile avec de longues listes de cartes.",
     result: "Application mobile intuitive pour l'organisation quotidienne.",
     githubUrl: "#",
-    demoUrl: "#",
+    demoUrl: "https://hub-strategique.vercel.app/",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1200&auto=format&fit=crop",
   },
   {
@@ -261,6 +261,7 @@ export default function App() {
                     <div className="pt-10 border-t border-app-border flex gap-4" id="modal-actions">
                       <a 
                         href={selectedProject.githubUrl} 
+                        target="_blank"
                         id="github-link"
                         className="flex-1 flex items-center justify-center gap-3 px-6 py-4 border border-app-border text-app-text rounded-2xl hover:bg-app-surface transition-all font-bold"
                       >
@@ -268,6 +269,7 @@ export default function App() {
                       </a>
                       <a 
                         href={selectedProject.demoUrl} 
+                        target="_blank"
                         id="demo-link"
                         className="flex-1 flex items-center justify-center gap-3 px-6 py-4 bg-brand-blue text-white rounded-2xl hover:opacity-90 transition-all shadow-[0_0_30px_rgba(59,130,246,0.3)] font-bold"
                       >
