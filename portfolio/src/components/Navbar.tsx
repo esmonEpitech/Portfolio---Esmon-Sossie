@@ -143,7 +143,7 @@ export default function Navbar({ isDark, onToggleTheme }: NavbarProps) {
               onClick={() => setIsOpen(false)}
               className="mt-1 text-center py-2 text-xs font-bold rounded-full bg-brand-yellow text-gray-900 shadow-sm"
             >
-              Me contacter ✨
+              Me contacter 
             </a>
           </div>
         </motion.div>

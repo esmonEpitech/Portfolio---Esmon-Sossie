@@ -265,7 +265,7 @@ export default function App() {
 
   return (
     <section
-      id="portfolio-section"
+      id="projects"
       className="relative min-h-screen py-24 px-4 md:px-8 bg-app-bg text-app-text overflow-hidden transition-colors duration-300"
     >
       {/* Slow rotating organic blobs in the background, matching Hero style */}
